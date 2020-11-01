@@ -26,10 +26,6 @@ namespace Countries.Data.EntityConfigurations
                 .IsRequired();
 
             builder
-                .Property(c => c.Image)
-                .HasMaxLength(500);
-
-            builder
                 .Property(c => c.BestDayToVisit)
                 .HasColumnType("date")
                 .IsRequired(true);

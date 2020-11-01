@@ -26,12 +26,14 @@ namespace Countries.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCountries()
         {
-            var countries = await _context.Countries.ToListAsync();
+            var countries = await _context.Countries.Include(c => c.Currency).ToListAsync();
 
             var countriesAsDto = countries.Select(c => new CountryListDto()
             {
                 Id = c.Id,
-                Name = c.Name
+                Name = c.Name,
+                IsCool = c.IsCool,
+                CurrencyName = c.Currency.Name
             }); 
 
             return Ok(countriesAsDto);
@@ -51,7 +53,9 @@ namespace Countries.Controllers
                 Id = country.Id,
                 Name = country.Name,
                 IsCool = country.IsCool,
-                Description = country.Description
+                Description = country.Description,
+                BestDayToVisit = country.BestDayToVisit,
+                CurrencyId = country.CurrencyId
             };
 
 
@@ -68,10 +72,14 @@ namespace Countries.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newCountry = new Country();
-            newCountry.Name = model.Name;
-            newCountry.IsCool = model.IsCool;
-            newCountry.Description = model.Description;
+            var newCountry = new Country()
+            {
+                Name = model.Name,
+                Description = model.Description,
+                BestDayToVisit = model.BestDayToVisit,
+                IsCool = model.IsCool,
+                CurrencyId = model.CurrencyId
+            };
 
             _context.Countries.Add(newCountry);
             await _context.SaveChangesAsync();
@@ -96,6 +104,8 @@ namespace Countries.Controllers
             countryDb.Name = country.Name;
             countryDb.IsCool = country.IsCool;
             countryDb.Description = country.Description;
+            countryDb.BestDayToVisit = country.BestDayToVisit;
+            countryDb.CurrencyId = country.CurrencyId;
 
             await _context.SaveChangesAsync();
 

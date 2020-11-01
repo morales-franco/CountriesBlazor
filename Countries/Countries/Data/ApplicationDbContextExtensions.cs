@@ -33,7 +33,7 @@ namespace Countries.Data
                 },
                 new Currency()
                 {
-                    Name = "DOLAR AUSD"
+                    Name = "DOLAR USD"
                 }
             };
 
