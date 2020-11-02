@@ -1,0 +1,20 @@
+﻿@page "/"
+@inject NotificationService notificationService
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<RadzenButton Click="@(args => ShowNotification(new NotificationMessage() { Severity = NotificationSeverity.Info, Summary = "Info Summary", Detail = "Hi Luis!", Duration = 4000 }))" Text="Click me"></RadzenButton>
+
+@code{
+    string text = "Welcome!";
+
+
+
+    async Task ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+}

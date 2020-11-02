@@ -1,0 +1,17 @@
+﻿<div class="row justify-content-start align-items-center">
+    <div class="col-6 d-flex align-items-center">
+        <RadzenSidebarToggle Click="OnSideBarToogle">
+        </RadzenSidebarToggle>
+        <RadzenLabel Text="My Blazor App">
+        </RadzenLabel>
+    </div>
+    <div class="col-6 d-flex align-items-center justify-content-end">
+        <label class="d-none d-sm-inline-block"> Testing </label>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public EventCallback<System.EventArgs> OnSideBarToogle { get; set; }
+}
