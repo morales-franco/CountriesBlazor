@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Countries.Dtos
+namespace Countries.Shared.Dtos
 {
-    public class CountryCreateDto
+    public class CountryUpdateDto
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo Nombre es Obligatorio")]
         [MaxLength(20, ErrorMessage = "Elcampo Nombre deber tener un maximo de 20 carácteres")]
@@ -21,7 +21,5 @@ namespace Countries.Dtos
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo Moneda es Obligatorio")]
         public int CurrencyId { get; set; }
-
-
     }
 }

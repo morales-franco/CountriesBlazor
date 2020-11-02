@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Countries.Dtos
+namespace Countries.Shared.Dtos
 {
     public class CountryDto
     {

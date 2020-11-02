@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Countries.Core.Entities;
 using Countries.Data;
-using Countries.Dtos;
-using Microsoft.AspNetCore.Http;
+using Countries.Shared.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

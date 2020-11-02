@@ -1,4 +1,4 @@
-﻿namespace Countries.Dtos
+﻿namespace Countries.Shared.Dtos
 {
     public class CurrencyListDto
     {

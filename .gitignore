@@ -8,3 +8,5 @@
 /Countries/.vs/Countries
 /Countries/Countries.App/bin/Debug/netcoreapp3.1
 /Countries/Countries.App/obj
+/Countries/Countries.Shared/bin/Debug/netstandard2.0
+/Countries/Countries.Shared/obj
