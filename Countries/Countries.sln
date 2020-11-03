@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Api", "Countries\Countries.Api.csproj", "{15688DA7-50A2-4EA9-BD42-1F025BA26A1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.App", "Countries.App\Countries.App.csproj", "{59D156E5-2DCC-4F87-9FC2-4D06B1535D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.App", "Countries.App\Countries.App.csproj", "{59D156E5-2DCC-4F87-9FC2-4D06B1535D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.Shared", "Countries.Shared\Countries.Shared.csproj", "{BBB7E677-68A5-4BE6-B218-4AEBF3464FC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Shared", "Countries.Shared\Countries.Shared.csproj", "{BBB7E677-68A5-4BE6-B218-4AEBF3464FC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

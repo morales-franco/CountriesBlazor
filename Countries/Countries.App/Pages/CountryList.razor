@@ -1,0 +1,16 @@
+﻿@page "/countries/index"
+@using Countries.App.Interfaces
+@using Countries.Shared.Dtos
+@inject ICountryService CountryService
+
+
+@code {
+
+    public List<CountryListDto> Countries { get; set; } = new List<CountryListDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Countries = await CountryService.GetAllCountries();
+    }
+
+}

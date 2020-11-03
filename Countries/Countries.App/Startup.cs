@@ -1,15 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Countries.App.Data;
 using Radzen;
+using Countries.App.Interfaces;
+using Countries.App.Services;
+using System.Net.Http;
 
 namespace Countries.App
 {
@@ -30,13 +28,21 @@ namespace Countries.App
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+
+            //Add http client
+            services.AddScoped(s =>
+                new HttpClient { BaseAddress = new Uri("http://localhost:54854/") });
 
             //Radzen dependencies
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
+
+            //App services
+            services.AddScoped<ICountryService, CountryService>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
