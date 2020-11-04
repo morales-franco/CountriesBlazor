@@ -1,16 +1,91 @@
 ﻿@page "/countries/index"
 @using Countries.App.Interfaces
 @using Countries.Shared.Dtos
+@inject NavigationManager NavigationManager
 @inject ICountryService CountryService
+@inject NotificationService notificationService
+
+<div class="row">
+    <div class="col-12">
+        <div class="card border-primary">
+            <h3 class="card-header text-white bg-dark">Countries <small>- List</small></h3>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="5"
+                                    AllowSorting="true" Data="@countries" TItem="CountryListDto" style="width: 100%;">
+                            <Columns>
+                                <RadzenGridColumn TItem="CountryListDto" Property="Id" Title="Country ID" />
+                                <RadzenGridColumn TItem="CountryListDto" Property="Name" Title="Name" />
+                                <RadzenGridColumn TItem="CountryListDto" Property="CurrencyName" Title="Currency" />
+                                <RadzenGridColumn TItem="CountryListDto" Property="IsCool" Title="Is cool ?">
+                                    <Template Context="data">
+                                        @(data.IsCool ? "Yes!" : "No:(")
+                                    </Template>
+                                </RadzenGridColumn>
+                                <RadzenGridColumn TItem="CountryListDto" Context="country" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                                    <Template Context="country">
+                                        <RadzenButton ButtonStyle="ButtonStyle.Info" Icon="edit" Size="ButtonSize.Small" Click="@(args => EditCountry(country))">
+                                        </RadzenButton>
+                                    </Template>
+                                </RadzenGridColumn>
+                                <RadzenGridColumn TItem="CountryListDto" Context="country" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                                    <Template Context="country">
+                                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@(args => DeleteCountry(country))">
+                                        </RadzenButton>
+                                    </Template>
+                                </RadzenGridColumn>
+                            </Columns>
+                        </RadzenGrid>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @code {
 
-    public List<CountryListDto> Countries { get; set; } = new List<CountryListDto>();
+    IEnumerable<CountryListDto> countries;
 
     protected override async Task OnInitializedAsync()
     {
-        Countries = await CountryService.GetAllCountries();
+        countries = await CountryService.GetAllCountries();
     }
+
+    private async Task DeleteCountry(CountryListDto country)
+    {
+        try
+        {
+            await CountryService.DeleteCountry(country.Id);
+            await ReloadCountries();
+        }
+        catch (Exception ex)
+        {
+            notificationService.Notify(new NotificationMessage()
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error",
+                Detail = ex.Message,
+                Duration = 4000
+            });
+        }
+
+    }
+
+    private void EditCountry(CountryListDto country)
+    {
+       NavigationManager.NavigateTo($"/countries/edit/{ country.Id }");
+    }
+
+    private async Task ReloadCountries()
+    {
+        countries = await CountryService.GetAllCountries();
+    }
+
+
 
 }

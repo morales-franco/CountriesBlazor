@@ -16,10 +16,11 @@ namespace Countries.Shared.Dtos
         [MaxLength(500, ErrorMessage = "Elcampo Descripción deber tener un maximo de 500 carácteres")]
         public string Description { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "El campo Mejor día para visitar es Obligatorio")]
+        [Required(ErrorMessage = "El campo Mejor día para visitar es Obligatorio")]
         public DateTime BestDayToVisit { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "El campo Moneda es Obligatorio")]
+        [Range(1, 100000, ErrorMessage = "El campo Moneda es obligatorio")]
+        [Required(ErrorMessage = "El campo Moneda es Obligatorio")]
         public int CurrencyId { get; set; }
     }
 }

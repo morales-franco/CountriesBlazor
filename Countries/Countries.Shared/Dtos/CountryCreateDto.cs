@@ -19,6 +19,7 @@ namespace Countries.Shared.Dtos
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo Mejor día para visitar es Obligatorio")]
         public DateTime BestDayToVisit { get; set; }
 
+        [Range(1, 100000, ErrorMessage = "El campo Moneda es obligatorio")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo Moneda es Obligatorio")]
         public int CurrencyId { get; set; }
 

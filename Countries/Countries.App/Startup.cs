@@ -41,8 +41,8 @@ namespace Countries.App
 
             //App services
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
 
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

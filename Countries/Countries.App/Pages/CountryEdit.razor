@@ -1,7 +1,123 @@
-﻿@page "/countries/edit"
+﻿@page "/countries/edit/{Id:int}"
+@using Countries.App.Interfaces
+@using Countries.Shared.Dtos
+@inject NavigationManager NavigationManager
+@inject ICountryService CountryService
+@inject ICurrencyService CurrencyService
+@inject NotificationService notificationService
 
-<h3>CountryEdit</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-primary">
+            <h3 class="card-header text-white bg-dark">Country <small>- Edit</small></h3>
+
+            <EditForm Model="@countryEdit" OnValidSubmit="@OnSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label" for="Names">Name</label>
+                        <div class="col-md-10">
+                            <RadzenTextBox @bind-Value="countryEdit.Name"
+                                           style="width: 100%;" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label" for="Description">Description</label>
+                        <div class="col-md-10">
+                            <RadzenTextArea @bind-Value="countryEdit.Description"
+                                            style="width: 100%;" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label" for="BestDayToVisit">Best day to visit</label>
+                        <div class="col-md-4">
+                            <RadzenDatePicker @bind-Value="countryEdit.BestDayToVisit"
+                                              DateFormat="d"
+                                              style="width: 100%;" />
+                        </div>
+                        <label class="col-md-2 col-form-label" for="name">Currency</label>
+                        <div class="col-md-4">
+                            <RadzenDropDown TValue="int"
+                                            @bind-Value="countryEdit.CurrencyId"
+                                            Placeholder="Select currency"
+                                            Data="@(currencies)"
+                                            TextProperty="Name"
+                                            ValueProperty="Id"
+                                            style="width: 100%;" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label" for="IsCool">Is cool ?</label>
+                        <div class="col-md-4">
+                            <RadzenCheckBox @bind-Value="@countryEdit.IsCool"
+                                            TValue="bool" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-footer bg-dark">
+                    <button type="button" class="btn btn-outline-primary"  @onclick="BackToIndex">Back</button>
+                    <button type="submit" class="btn btn-outline-success float-right">Save</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private CountryUpdateDto countryEdit = new CountryUpdateDto();
+
+    private IEnumerable<CurrencyListDto> currencies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currencies = await CurrencyService.GetAllCurrencies();
+        var country = await CountryService.GetCountryById(Id);
+
+        //INIT edit model
+        countryEdit = new CountryUpdateDto()
+        {
+            Name = country.Name,
+            BestDayToVisit = country.BestDayToVisit,
+            CurrencyId = country.CurrencyId,
+            Description = country.Description,
+            IsCool = country.IsCool
+        };
+    }
+
+    private async Task OnSubmit()
+    {
+        //Modelis valid
+        try
+        {
+            await CountryService.UpdateEmployee(Id, countryEdit);
+            NavigationManager.NavigateTo("/countries/index");
+        }
+        catch (Exception ex)
+        {
+            notificationService.Notify(new NotificationMessage()
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error",
+                Detail = ex.Message,
+                Duration = 4000
+            });
+        }
+
+    }
+
+    private void BackToIndex(MouseEventArgs e)
+    {
+        NavigationManager.NavigateTo("/countries/index");
+    }
 
 }

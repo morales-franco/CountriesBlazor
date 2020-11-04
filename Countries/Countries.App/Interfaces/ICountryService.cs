@@ -6,6 +6,10 @@ namespace Countries.App.Interfaces
 {
     public interface ICountryService
     {
-        Task<List<CountryListDto>> GetAllCountries();
+        Task AddCountry(CountryCreateDto country);
+        Task DeleteCountry(int countryId);
+        Task<IEnumerable<CountryListDto>> GetAllCountries();
+        Task<CountryDto> GetCountryById(int countryId);
+        Task UpdateEmployee(int countryId, CountryUpdateDto country);
     }
 }

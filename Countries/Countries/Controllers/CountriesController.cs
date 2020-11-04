@@ -118,6 +118,10 @@ namespace Countries.Controllers
             if (countryDb == null)
                 return NotFound();
 
+            //Validate - you cannot remove Country with Id == 1
+            if (countryDb.Id == 1)
+                return BadRequest("You can not remove a country with Id = 1 because is magic");
+
             _context.Countries.Remove(countryDb);
             await _context.SaveChangesAsync();
 
