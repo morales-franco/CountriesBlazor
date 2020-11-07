@@ -10,6 +10,6 @@ namespace Countries.App.Interfaces
         Task DeleteCountry(int countryId);
         Task<IEnumerable<CountryListDto>> GetAllCountries();
         Task<CountryDto> GetCountryById(int countryId);
-        Task UpdateEmployee(int countryId, CountryUpdateDto country);
+        Task UpdateCountry(int countryId, CountryUpdateDto country);
     }
 }

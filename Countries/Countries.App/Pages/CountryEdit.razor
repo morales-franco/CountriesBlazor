@@ -99,7 +99,7 @@
         //Modelis valid
         try
         {
-            await CountryService.UpdateEmployee(Id, countryEdit);
+            await CountryService.UpdateCountry(Id, countryEdit);
             NavigationManager.NavigateTo("/countries/index");
         }
         catch (Exception ex)

@@ -42,7 +42,7 @@ namespace Countries.App.Services
                 throw new Exception("Error in server - Please contact your administrator");
         }
 
-        public async Task UpdateEmployee(int countryId, CountryUpdateDto country)
+        public async Task UpdateCountry(int countryId, CountryUpdateDto country)
         {
             var countryAsJson =
                 new StringContent(JsonSerializer.Serialize(country), Encoding.UTF8, "application/json");
